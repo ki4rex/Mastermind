@@ -5,12 +5,11 @@ import random
 pygame.init()
 
 # Constants
-SCREEN_WIDTH, SCREEN_HEIGHT = 600, 500
+SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
 GRID_ROWS = 10  # Number of guesses allowed
-GRID_COLS = 4  # Number of pegs per guess
+GRID_COLS = 4   # Number of pegs per guess
 PEG_RADIUS = 20
 COLORS = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0), (255, 165, 0), (128, 0, 128)]  # Red, Green, Blue, Yellow, Orange, Purple
-COLOR_NAMES = ['Red', 'Green', 'Blue', 'Yellow', 'Orange', 'Purple']
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 BACKGROUND_COLOR = (240, 240, 240)
@@ -75,8 +74,50 @@ class MastermindGame:
                 return True  # Game won
         return False  # Game continues
 
+# Function to display the splash screen
+def display_splash_screen():
+    splash_screen = True
+    while splash_screen:
+        screen.fill(BLACK)
+
+        # Display game title and rules
+        title_text = font.render("Mastermind", True, WHITE)
+        rules_text = font.render("Rules of the Game:", True, WHITE)
+        rule1_text = font.render("1. Guess the secret color sequence.", True, WHITE)
+        rule2_text = font.render("2. Each guess is followed by feedback.", True, WHITE)
+        rule3_text = font.render("3. Black pegs = correct color and position.", True, WHITE)
+        rule4_text = font.render("4. White pegs = correct color, wrong position.", True, WHITE)
+        rule5_text = font.render("5. You have 10 guesses to solve the puzzle.", True, WHITE)
+        start_text = font.render("Press any key or click to start.", True, WHITE)
+
+        # Position the text
+        screen.blit(title_text, (SCREEN_WIDTH // 2 - title_text.get_width() // 2, 50))
+        screen.blit(rules_text, (50, 150))
+        screen.blit(rule1_text, (50, 180))
+        screen.blit(rule2_text, (50, 210))
+        screen.blit(rule3_text, (50, 240))
+        screen.blit(rule4_text, (50, 270))
+        screen.blit(rule5_text, (50, 300))
+        screen.blit(start_text, (SCREEN_WIDTH // 2 - start_text.get_width() // 2, SCREEN_HEIGHT - 100))
+
+        pygame.display.flip()
+
+        # Wait for user to click or press a key
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return False  # Exit the program
+            elif event.type == pygame.MOUSEBUTTONDOWN or event.type == pygame.KEYDOWN:
+                splash_screen = False  # Exit splash screen
+
+    return True
+
 # Pygame loop
 def main():
+    # Display the splash screen with rules
+    if not display_splash_screen():
+        return  # Exit if user closes the splash screen
+
     game = MastermindGame()
     running = True
     game_won = False
