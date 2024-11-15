@@ -27,3 +27,17 @@ To Run the Game:
 
     Make sure Pygame is installed (pip install pygame).
     Run the Python script, and you'll be able to play the Mastermind game where you submit guesses using the "Submit Guess" button.
+
+
+Explanation of Changes:
+
+    Splash Screen (display_splash_screen function):
+        The splash screen displays the game's title, rules, and an instruction to press a key or click to start the game.
+        The screen remains visible until the user interacts (by pressing a key or clicking the mouse).
+
+    Rules Display:
+        The rules are displayed in the center of the screen, instructing the player on how to play.
+        The player is prompted to start the game by pressing any key or clicking the mouse.
+
+    Starting the Game:
+        After the splash screen is closed, the main game loop begins as usual.
